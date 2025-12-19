@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment-processor
+  namespace: payments
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 60
+  selector:
+    matchLabels:
+      app: payment-processor
+  template:
+    metadata:
+      labels:
+        app: payment-processor
+      annotations:
+        argocd.argoproj.io/sync-wave: "2"
+    spec:
+      containers:
+        - name: payment-processor
+          image: paymeshacr12345.azurecr.io/payment-processor:v1
+          imagePullPolicy: Always
+          readinessProbe:
+            exec:
+              command: ["sh", "-c", "echo ready"]
+            initialDelaySeconds: 5
+            periodSeconds: 5

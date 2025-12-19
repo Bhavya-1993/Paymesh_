@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kafka
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Bhavya-1993/Developer
+    targetRevision: main
+    path: gitops/kafka
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kafka
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

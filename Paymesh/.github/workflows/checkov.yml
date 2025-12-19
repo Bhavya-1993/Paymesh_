@@ -1,0 +1,23 @@
+name: IaC Security Scan (Checkov)
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  checkov:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Checkov scan
+        uses: bridgecrewio/checkov-action@master
+        with:
+          directory: .
+          framework: terraform,kubernetes
+          soft_fail: true
+

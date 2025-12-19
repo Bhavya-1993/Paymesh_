@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-controller
+  namespace: payments
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 60
+  selector:
+    matchLabels:
+      app: db-controller
+  template:
+    metadata:
+      labels:
+        app: db-controller
+      annotations:
+        argocd.argoproj.io/sync-wave: "0"
+    spec:
+      containers:
+        - name: db-controller
+          image: paymeshacr12345.azurecr.io/db-controller:v1
+          imagePullPolicy: Always
+          readinessProbe:
+            exec:
+              command: ["sh", "-c", "echo controller-ready"]
+            initialDelaySeconds: 5
+            periodSeconds: 5

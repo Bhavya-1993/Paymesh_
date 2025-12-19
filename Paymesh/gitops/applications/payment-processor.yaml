@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: payment-processor
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Bhavya-1993/Developer
+    targetRevision: main
+    path: apps/payment-processor
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: payments
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

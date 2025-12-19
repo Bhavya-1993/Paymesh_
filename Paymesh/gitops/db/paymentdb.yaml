@@ -1,0 +1,9 @@
+apiVersion: paymesh.io/v1alpha1
+kind: PaymentDB
+metadata:
+  name: payments-db
+  namespace: payments
+spec:
+  engine: inmemory
+  retentionDays: 7
+  maxRecords: 10000

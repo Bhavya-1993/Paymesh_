@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kafka-metrics
+  namespace: kafka
+data:
+  kafka-metrics-config.yml: |
+    lowercaseOutputName: true
+    rules:
+      - pattern: "kafka.server<type=(.+), name=(.+)><>Value"
+  zookeeper-metrics-config.yml: |
+    lowercaseOutputName: true

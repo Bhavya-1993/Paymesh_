@@ -1,0 +1,37 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: paymentdbs.paymesh.io
+spec:
+  group: paymesh.io
+  scope: Namespaced
+  names:
+    plural: paymentdbs
+    singular: paymentdb
+    kind: PaymentDB
+    shortNames:
+      - pdb
+  versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                engine:
+                  type: string
+                retentionDays:
+                  type: integer
+                maxRecords:
+                  type: integer
+            status:
+              type: object
+              properties:
+                phase:
+                  type: string
+                records:
+                  type: integer

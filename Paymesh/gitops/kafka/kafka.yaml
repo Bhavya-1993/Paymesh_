@@ -1,0 +1,30 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: Kafka
+metadata:
+  name: paymesh-kafka
+  namespace: kafka
+spec:
+  kafka:
+    replicas: 1
+    listeners:
+      - name: plain
+        port: 9092
+        type: internal
+        tls: false
+    metricsConfig:
+      type: jmxPrometheusExporter
+      valueFrom:
+        configMapKeyRef:
+          name: kafka-metrics
+          key: kafka-metrics-config.yml
+  zookeeper:
+    replicas: 1
+    metricsConfig:
+      type: jmxPrometheusExporter
+      valueFrom:
+        configMapKeyRef:
+          name: kafka-metrics
+          key: zookeeper-metrics-config.yml
+  entityOperator:
+    topicOperator: {}
+    userOperator: {}
